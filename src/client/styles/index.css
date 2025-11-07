@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+}
+
+#nipple-container {
+    width: calc(150px + 1rem);
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    left: 50px;
+    bottom: 50px;
+    z-index: 999;
+}

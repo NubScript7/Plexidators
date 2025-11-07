@@ -1,0 +1,38 @@
+{
+  "name": "plexidators",
+  "version": "1.0.0",
+  "scripts": {
+    "start:v1": "parcel src/client/index.html",
+    "build:v1": "tsup --entry.index src/client/scripts/index.ts --format esm",
+    "dev:v1": "nodemon --ext \"ts\" --watch \"src/client/scripts\" --exec \"npm build\"",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@parcel/config-default": "^2.16.0",
+    "dat.gui": "^0.7.9",
+    "express": "^4.21.2",
+    "jquery": "^3.7.1",
+    "nipplejs": "^0.10.2",
+    "node-device-detector": "^2.2.4",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "three": "^0.167.1",
+    "three-mesh-bvh": "^0.9.2",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/dat.gui": "^0.7.13",
+    "@types/express": "^4.17.23",
+    "@types/jquery": "^3.5.33",
+    "@types/node": "^24.0.15",
+    "@types/three": "^0.167.2",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}
