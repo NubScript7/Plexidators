@@ -1,5 +1,6 @@
 import { RemotePlayer } from "../../components/player/RemotePlayer";
 import type { CoreContext } from "../../core/CoreContext";
+import { broadcastPlayer } from "../../services/socket/broadcastPlayer";
 import { socketManager } from "./SocketManager";
 import * as THREE from "three"
 
@@ -27,6 +28,10 @@ class MultiplayerManager {
     async init(core: CoreContext) {
         this.scene = core.scene;
         await socketManager.init(this);
+        
+        if(socketManager.online) {
+            broadcastPlayer(core.playerManager.player);
+        }
 
         this._initUpdater(core);
     }

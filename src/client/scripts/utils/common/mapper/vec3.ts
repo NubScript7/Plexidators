@@ -5,9 +5,9 @@ const SCALE = 100;
 export function encodeVector3(vec: THREE.Vector3) {
 
     return new THREE.Vector3(
+        Math.round(vec.x * SCALE),
         Math.round(vec.y * SCALE),
         Math.round(vec.z * SCALE),
-        Math.round(vec.x * SCALE),
     )
 }
 

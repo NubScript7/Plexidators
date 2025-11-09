@@ -5,14 +5,10 @@ const ANGLE_MIN = -Math.PI;
 const ANGLE_MAX = Math.PI;
 
 export function encodeEuler(e: THREE.Euler) {
-    const x = mapFloatToInt16(e.x, ANGLE_MIN, ANGLE_MAX);
-    const y = mapFloatToInt16(e.y, ANGLE_MIN, ANGLE_MAX);
-    const z = mapFloatToInt16(e.z, ANGLE_MIN, ANGLE_MAX);
-
     return new THREE.Euler(
-        x,
-        y,
-        z,
+        mapFloatToInt16(e.x, ANGLE_MIN, ANGLE_MAX),
+        mapFloatToInt16(e.y, ANGLE_MIN, ANGLE_MAX),
+        mapFloatToInt16(e.z, ANGLE_MIN, ANGLE_MAX),
     )
 }
 

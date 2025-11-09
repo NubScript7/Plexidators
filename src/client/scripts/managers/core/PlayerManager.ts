@@ -1,7 +1,5 @@
 import { Player } from "../../components/player/Player";
 import { PlayerController } from "../../controllers/PlayerController";
-import { socketManager } from "../multiplayer/SocketManager";
-import { broadcastPlayer } from "../../services/socket/broadcastPlayer";
 import type { CoreContext } from "../../core/CoreContext";
 
 export class PlayerManager {
@@ -24,10 +22,6 @@ export class PlayerManager {
 
         this.controller = controller;
         this.player = player;
-
-        if(socketManager.online) {
-            broadcastPlayer(player);
-        }
 
         core.animateManager.add((delta) => {
             controller.update(delta);
