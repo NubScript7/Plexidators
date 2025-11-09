@@ -9,7 +9,11 @@ export function encodeEuler(e: THREE.Euler) {
     const y = mapFloatToInt16(e.y, ANGLE_MIN, ANGLE_MAX);
     const z = mapFloatToInt16(e.z, ANGLE_MIN, ANGLE_MAX);
 
-    return {x, y, z};
+    return new THREE.Euler(
+        x,
+        y,
+        z,
+    )
 }
 
 export function decodeEuler(x: number, y: number, z: number) {

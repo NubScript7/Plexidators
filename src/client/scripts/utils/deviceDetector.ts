@@ -6,10 +6,8 @@ const userAgent = navigator.userAgent;
 
 export const result = detector.detect(userAgent);
 
-export function isMobile() {
-    return DeviceHelper.isMobile(result);
-}
+export const deviceTypes = detector.getAvailableDeviceTypes();
 
-export function isDesktop() {
-    return DeviceHelper.isDesktop(result);
+export function getDeviceType() {
+    return DeviceHelper.getDeviceType(result);
 }

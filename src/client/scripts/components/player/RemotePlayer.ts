@@ -15,11 +15,11 @@ export class RemotePlayer extends Player {
     }
 
     update() {
-        this.mesh.position.lerp(this.pos, 0.2);
-        this.camera.position.copy(this.mesh.position);
+        this.body.position.lerp(this.pos, 0.2);
+        this.camera.position.copy(this.body.position);
     
         this.camera.quaternion.slerp(this.rot, 0.2);
-        this.mesh.rotation.copy(this.camera.rotation);
+        this.body.rotation.copy(this.camera.rotation);
     }
 
     moveToPosition(pos: THREE.Vector3, rot: THREE.Euler) {

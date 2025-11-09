@@ -1,35 +1,31 @@
 import * as THREE from "three"
-import { worldConfig } from "../../config/world";
-import { GLTFLoader } from "three/examples/jsm/Addons.js";
 import { collisionManager } from "../collision/CollisionManager";
+import type { CoreContext } from "../../core/CoreContext";
+import { loaderManager } from "../loader/LoaderManager";
 
 class WorldManager {
-    initialized: boolean
 
-    constructor() {
-        this.initialized = false;
+    async loadMap(core: CoreContext) {
+        const map = loaderManager.models.get("mapModel");
+        map?.scene.traverse((object) => {
+            if(object instanceof THREE.Mesh) {
+                console.log(object);
+            }
+        })
+        
+        map!.scene.scale.setScalar(4);
+        map?.scene.updateMatrixWorld(true);
+        
+        core.scene.add(map!.scene);
+        collisionManager.init(core, map!.scene);
     }
 
-    async loadMap(scene: THREE.Scene) {
-        const gltfLoader = new GLTFLoader();
-        const map = await gltfLoader.loadAsync(
-            new URL(worldConfig.mapUrl, import.meta.url).href
-        );
-        map.scene.scale.setScalar(8);
-        scene.add(map.scene);
-        collisionManager.init(scene, map.scene);
-    }
-
-    async initWorld(scene: THREE.Scene) {
-        await this.loadMap(scene);
+    async initWorld(core: CoreContext) {
+        await this.loadMap(core);
 
         const ambientLight = new THREE.AmbientLight(0xFFFCFA, 1.5);
-        scene.add(ambientLight);
-
-        this.initialized = true;
+        core.scene.add(ambientLight);
     }
 }
-
-export type WorldManagerType = InstanceType<typeof WorldManager>;
 
 export const worldManager = new WorldManager();

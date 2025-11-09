@@ -1,36 +1,36 @@
 import type { UUID } from "node:crypto"
 import { v4 as uuidV4 } from "uuid"
 
-export type pluginCB = () => void
+export type pluginCB = (delta: number) => void
 export type pluginMap = Map<string, pluginCB>
 
 export class AnimateManager {
-    static _plugins: pluginMap = new Map()
+    private _plugins: pluginMap = new Map()
 
-    static add(cb: pluginCB) {
+    add(cb: pluginCB) {
 
-        const id = uuidV4()
-        this._plugins.set(id, cb)
+        const id = uuidV4();
+        this._plugins.set(id, cb);
 
-        return id
+        return id;
     }
 
-    static remove(id: UUID) {
+    remove(id: UUID) {
         if(this._plugins.has(id)) {
-            this._plugins.delete(id)
+            this._plugins.delete(id);
         } else {
-            return false
+            return false;
         }
-        return true
+        return true;
     }
 
-    static get plugins() {
-        return this._plugins.values()
+    get plugins() {
+        return this._plugins.values();
     }
 
-    static animate() {
-        for(const cb of AnimateManager._plugins.values()) {
-            cb();
+    animate(delta: number) {
+        for(const cb of this._plugins.values()) {
+            cb(delta);
         }
     }
 }

@@ -1,8 +1,7 @@
 import * as THREE from "three"
-import { Storage } from "../../core/Storage";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
-import { AnimateManager } from "../../managers/core/AnimateManager";
 import { debugConfig } from "../../config/debug";
+import type { CoreContext } from "../../core/CoreContext";
 
 class MasterRenderer {
     #init: boolean
@@ -27,19 +26,17 @@ class MasterRenderer {
         return this.#init;
     }
     
-    init(scene: THREE.Scene, mainRenderer: THREE.WebGLRenderer) {
-        this.scene = scene;
-        this.mainRenderer = mainRenderer;
+    init(core: CoreContext) {
+        this.scene = core.scene;
+        this.mainRenderer = core.renderer;
 
-        Storage.debug = true;
         this.#init = true;
     
-        
         
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setClearColor(0xbfc0cd);
 
-        scene.add(this.camera);
+        core.scene.add(this.camera);
         
         document.body.appendChild(this.renderer.domElement);
         
@@ -47,9 +44,9 @@ class MasterRenderer {
         const controller = new OrbitControls(this.camera, this.renderer.domElement);
         controller.update();
         
-        AnimateManager.add(() => {
+        core.animateManager.add(() => {
             if(debugConfig.showDebugRenderer) {
-                this.renderer.render(scene, this.camera);
+                this.renderer.render(core.scene, this.camera);
             }
         })
 

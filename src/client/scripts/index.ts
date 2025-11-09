@@ -1,3 +1,3 @@
-import { InitManager } from "./managers/core/InitManager";
+import { InitManager } from "./managers/InitManager";
 
 InitManager.initialize();

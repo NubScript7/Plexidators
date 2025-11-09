@@ -1,20 +1,20 @@
 import nipplejs from "nipplejs"
 import $ from "jquery"
 import * as THREE from "three"
+import type { InputControllerPlugin } from "./InputController"
 
-class JoystickManager {
+export class JoystickController implements InputControllerPlugin {
     manager?: nipplejs.JoystickManager
-    containerElement: JQuery
+    containerElement = $("#nipple-container");
 
-    velocity: THREE.Vector2
+    velocity = new THREE.Vector2()
+    designatedDevice = "mobile"
 
-    constructor() {
-        this.containerElement = $("#nipple-container");
-
-        this.velocity = new THREE.Vector2();
+    getMovementVelocity(): THREE.Vector2 {
+        return this.velocity;
     }
 
-    init() {
+    onActivated?() {
         this.manager = nipplejs.create({
             zone: this.containerElement.get(0),
             mode: "static",
@@ -35,7 +35,3 @@ class JoystickManager {
         })
     }
 }
-
-export type JoystickManagerType = InstanceType<typeof JoystickManager>;
-
-export const joystickManager = new JoystickManager();

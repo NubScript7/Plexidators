@@ -1,5 +1,5 @@
 import type { Player } from "../../components/player/Player";
-import { playerConfig } from "../../config/players";
+import { playerConfig } from "../../config/player";
 import { socketConfig } from "../../config/socket";
 import { socketManager } from "../../managers/multiplayer/SocketManager";
 import { requestInterval } from "../../utils/requestInterval";
@@ -14,7 +14,7 @@ export function broadcastPlayer(player: Player) {
     const positionThreshold = playerConfig.positionChangeThreshold;
 
     requestInterval(() => {
-        const pos = player.mesh.position;
+        const pos = player.body.position;
         const quat = player.camera.quaternion;
         const rot = player.camera.rotation;
 

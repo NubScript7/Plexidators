@@ -2,22 +2,23 @@ import { debugConfig } from "../../config/debug";
 import { toggleCameraHelper } from "../../debug/helpers/cameraHelper";
 import { toggleWireframeAll } from "../../debug/helpers/wireFrameAll";
 import { masterRenderer } from "../../debug/renderers/masterRender";
-import * as THREE from "three"
+
 import { initGUI } from "../../debug/ui/gui";
+import type { CoreContext } from "../../core/CoreContext";
 
 export class DebugManager {
-    static initialize(scene: THREE.Scene, mainRenderer: THREE.WebGLRenderer) {
+    static initialize(core: CoreContext) {
         //helpers
-        toggleCameraHelper(scene, debugConfig.showCameraHelpers);
-        toggleWireframeAll(scene, debugConfig.wireFrameEnabled);
+        toggleCameraHelper(core.scene, debugConfig.showCameraHelpers);
+        toggleWireframeAll(core.scene, debugConfig.wireFrameEnabled);
         
         //renderers
-        masterRenderer.init(scene, mainRenderer);
+        masterRenderer.init(core);
 
         masterRenderer.fullScreenMainRenderer(!debugConfig.showDebugRenderer);
 
         //ui
-        initGUI(scene);
+        initGUI(core.scene);
 
     }
 }

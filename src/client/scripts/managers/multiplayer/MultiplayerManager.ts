@@ -1,5 +1,5 @@
 import { RemotePlayer } from "../../components/player/RemotePlayer";
-import { AnimateManager } from "../core/AnimateManager";
+import type { CoreContext } from "../../core/CoreContext";
 import { socketManager } from "./SocketManager";
 import * as THREE from "three"
 
@@ -24,11 +24,11 @@ class MultiplayerManager {
         return this.#is_init;
     }
 
-    async init(scene: THREE.Scene) {
-        this.scene = scene;
+    async init(core: CoreContext) {
+        this.scene = core.scene;
         await socketManager.init(this);
 
-        this._initUpdater();
+        this._initUpdater(core);
     }
 
     _initializedOrError() {
@@ -75,8 +75,8 @@ class MultiplayerManager {
                 
     }
 
-    _initUpdater() {
-        AnimateManager.add(() => {
+    _initUpdater(core: CoreContext) {
+        core.animateManager.add(() => {
             for(const player of this.players.values()) {
                 player.update();
             }
